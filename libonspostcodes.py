@@ -1,5 +1,7 @@
 import mysql.connector
 import csv
+import glob
+import os
 from decimal import *
 from mysql.connector import errorcode
 from datetime import datetime
@@ -15,6 +17,19 @@ from config import (DB_HOST,
 def time_now(TIMESTAMP_FORMAT):
     ''' Get formatted timestamp '''
     return datetime.now().strftime(TIMESTAMP_FORMAT)
+
+def scan_directory(dir_to_scan):
+    ''' Scan CSV directory and create a dictionary of the CSV files in the root of the folder '''
+    print(f"{time_now(TIMESTAMP_FORMAT)}\tScanning directory {dir_to_scan}...")
+    file_list = glob.glob(f"{dir_to_scan}/*.[Cc][Ss][Vv]")
+    file_list_with_dates = {}
+    for file_path in file_list:
+        file_name = os.path.basename(file_path)
+        modified_date = datetime.fromtimestamp(os.path.getmtime(file_path))
+        file_record = {file_name:{"file_path": file_path, "modified_date": modified_date}}
+        file_list_with_dates.update(file_record)
+    print(f"{time_now(TIMESTAMP_FORMAT)}\tDone: {len(file_list_with_dates)} csv files scanned")
+    return file_list_with_dates
 
 def connect_to_db(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME, DB_PORT):
     """ Connect to DB and create user and db if needed """

@@ -1,7 +1,7 @@
-DB_USERNAME = ""
-DB_PASSWORD = ""
-DB_HOST = ""
+DB_USERNAME = "username"
+DB_PASSWORD = "password"
+DB_HOST = "db_url_or_ip"
 DB_PORT = 3306
-DB_NAME = ""
+DB_NAME = "database"
 PCD_FILE_PATH = "./pcd.csv"
 TIMESTAMP_FORMAT = '%Y-%m-%d %H:%M:%S'

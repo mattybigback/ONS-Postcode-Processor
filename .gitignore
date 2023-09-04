@@ -1,4 +1,5 @@
 /.venv
 /config.py
 /pcd.csv
+/pcd_csvs
 /__pycache__
